@@ -4,7 +4,7 @@
 #
 #
 substitutions:
-  device_name: catarina_bed
+  device_name: catarina-bed
   friendly_name: Catarina Bed
   device_description: "Pressure Sensor"
 
@@ -14,30 +14,22 @@ esphome:
   platform: ESP32
   board: esp32dev
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-
-# Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: '${device_name}'
-    password: !secret fallback_password
-captive_portal:
-
 # Enable logging
 logger:
 
 # Enable Home Assistant API
 api:
-  password: !secret esphome_api_password
-  
+
 ota:
-  safe_mode: true
-  reboot_timeout: 10min
-  num_attempts: 5
-  
-web_server:
-  port: 80
-  auth:
-    username: !secret esphome_web_username
-    password: !secret esphome_web_password
+  password: "0c6ec4b4830dd9a7a492c8610f4ab7dc"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Catarina-Bed Fallback Hotspot"
+    password: "Rvrdo4dC2dr6"
+
+captive_portal:
