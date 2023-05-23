@@ -1,28 +1,27 @@
-# Home Assistant Pressure Mat
-#
-#Bed or Doormat sensor
-#
-#
 substitutions:
-  device_name: catarina-bed
-  friendly_name: Catarina Bed
-  device_description: "Pressure Sensor"
+  device_name: main-bed
+  friendly_name: Main Bed
+  device_description: "Main Bed Pressure Sensor"
 
 esphome:
   name: '${device_name}'
   comment: '${device_description}'
-  platform: ESP32
+
+esp32:
   board: esp32dev
+  framework:
+    type: arduino
 
 # Enable logging
 logger:
 
 # Enable Home Assistant API
 api:
+  encryption:
+    key: "TWEYVAvxT0WISQuKo01uMCF/23W79qhmBaShS5hvO1Y="
 
 ota:
-  password: "0c6ec4b4830dd9a7a492c8610f4ab7dc"
-
+  password: "dc57bd34072c782d5d77a13bbae589d3"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -30,18 +29,48 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Catarina-Bed Fallback Hotspot"
-    password: "Rvrdo4dC2dr6"
+    ssid: "Main-Bed Fallback Hotspot"
+    password: "MeDd4OnIncNs"
 
 captive_portal:
+
+improv_serial:
 
 binary_sensor:
   - platform: gpio
     pin:
-      number: 15
+      number: 13
       inverted: true
       mode:
         input: true
         pullup: true
-    name: '${device_name}'
+    name: Rui
+    icon: mdi:bed
+  - platform: gpio
+    pin:
+      number: 14
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    name: Patricia
+    icon: mdi:bed
+
+      
+####################
+######BT PROXY######
+
+esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+button:
+- platform: safe_mode
+  name: Safe Mode Boot
+  entity_category: diagnostic
     
